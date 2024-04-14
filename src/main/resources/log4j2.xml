@@ -6,7 +6,16 @@
         </Console>
     </Appenders>
     <Loggers>
-        <Root level="info">
+        <!-- Root logger for method entry/exit logging -->
+        <Logger name="com.nyanmyohtet.studentregistrationservice.aspect.MethodLoggingAspect" level="INFO">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
+        <!-- Root logger for exception logging -->
+        <Logger name="com.nyanmyohtet.studentregistrationservice.aspect.ExceptionLoggingAspect" level="ERROR">
+            <AppenderRef ref="ConsoleAppender"/>
+        </Logger>
+        <!-- Root logger for other classes -->
+        <Root level="INFO">
             <AppenderRef ref="Console"/>
         </Root>
     </Loggers>

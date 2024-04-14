@@ -3,16 +3,19 @@ package com.nyanmyohtet.studentregistrationservice.aspect;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
 import org.springframework.stereotype.Component;
 
 import java.util.Arrays;
 
 @Aspect
 @Component
-public class LoggingAspect {
+public class MethodLoggingAspect {
 
-    private static final Logger logger = LogManager.getLogger(LoggingAspect.class);
+    private static final Logger logger = LogManager.getLogger(MethodLoggingAspect.class);
 
     @Pointcut("execution(* com.nyanmyohtet.studentregistrationservice.service.*.*(..))")
     public void serviceMethods() {}
@@ -28,11 +31,5 @@ public class LoggingAspect {
     public void afterReturningAdvice(JoinPoint joinPoint, Object result) {
         String methodName = joinPoint.getSignature().getName();
         logger.info("Logging: {} returned with value: {}", methodName, result);
-    }
-
-    @AfterThrowing(pointcut = "serviceMethods()", throwing = "exception")
-    public void afterThrowingAdvice(JoinPoint joinPoint, Throwable exception) {
-        String methodName = joinPoint.getSignature().getName();
-        logger.error("Logging: {} threw an exception: {}", methodName, exception.getMessage(), exception);
     }
 }
