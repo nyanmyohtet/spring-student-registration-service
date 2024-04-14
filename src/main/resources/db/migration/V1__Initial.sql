@@ -1,3 +1,11 @@
+-- hibernate_sequence table
+CREATE TABLE hibernate_sequence (
+    next_val BIGINT
+);
+
+INSERT INTO hibernate_sequence VALUES (1);
+
+-- students table
 CREATE TABLE IF NOT EXISTS students (
   id BIGINT NOT NULL,
    first_name VARCHAR(255) NULL,
@@ -10,20 +18,22 @@ CREATE TABLE IF NOT EXISTS students (
 
 ALTER TABLE students ADD CONSTRAINT uc_2fa9b1b7386257800c3dd43d1 UNIQUE (id);
 
+-- Stored Procedure
 CREATE PROCEDURE `student-registration-service`.getStudents(IN pageNumber INT, IN pageSize INT)
 begin
 	DECLARE offsetValue INT DEFAULT 0;
     SET offsetValue = (pageNumber) * pageSize;
 
-	select
+	SELECT
         id,
-        std.first_name as first_name,
-        std.last_name as last_name,
-        std.address as address,
-        std.created_date as created_date,
-        std.updated_date as updated_date
-    from
+        first_name,
+        last_name,
+        address,
+        created_date,
+        updated_date
+    FROM
         students std
-    order by
-        std.updated_date desc limit pageSize offset offsetValue;
+    ORDER BY
+        std.updated_date DESC
+    LIMIT pageSize OFFSET offsetValue;
 END
