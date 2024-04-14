@@ -15,10 +15,13 @@ public class Student {
     @Column(name = "id", nullable = false)
     private Long id;
 
+    @Column()
     private String firstName;
 
+    @Column()
     private String lastName;
 
+    @Column()
     private String address;
 
     @Column()
