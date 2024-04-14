@@ -13,6 +13,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import javax.transaction.Transactional;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -48,6 +49,16 @@ public class StudentServiceImpl implements StudentService {
         studentResponse.setLast(students.isLast());
 
         return studentResponse;
+    }
+
+    @Override
+    @Transactional
+    public List<StudentDto> getAllStudentsByStoredProcedure(int pageNo, int pageSize) {
+        List<Student> students = studentRepository.getStudents(pageNo, pageSize);
+
+        List<StudentDto> studentDtos = students.stream().map(this::mapToDTO).collect(Collectors.toList());
+
+        return studentDtos;
     }
 
     @Override

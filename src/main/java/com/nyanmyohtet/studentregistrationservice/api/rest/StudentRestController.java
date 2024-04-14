@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequestMapping(path = "/api/v1/student-management/students")
@@ -27,6 +28,15 @@ public class StudentRestController {
             @RequestParam(value = "sortDir", defaultValue = AppConstants.DEFAULT_SORT_DIRECTION, required = false) String sortDir) {
 
         StudentResponse allStudents = studentService.getAllStudents(name, pageNo, pageSize, sortBy, sortDir);
+        return new ResponseEntity<>(allStudents, HttpStatus.OK);
+    }
+
+    @GetMapping("/stored-procedure")
+    public ResponseEntity<List<StudentDto>> getAllStudentByStoredProcedure(
+            @RequestParam(value = "pageNo", defaultValue = AppConstants.DEFAULT_PAGE_NUMBER, required = false) int pageNo,
+            @RequestParam(value = "pageSize", defaultValue = AppConstants.DEFAULT_PAGE_SIZE, required = false) int pageSize) {
+
+        List<StudentDto> allStudents = studentService.getAllStudentsByStoredProcedure(pageNo, pageSize);
         return new ResponseEntity<>(allStudents, HttpStatus.OK);
     }
 
