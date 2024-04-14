@@ -15,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
@@ -32,8 +33,13 @@ public class StudentServiceImpl implements StudentService {
         // create Pageable instance
         Pageable pageable = PageRequest.of(pageNo, pageSize, sort);
 
-        // TODO: make flexible
-        Page<Student> students = studentRepository.findAllByFirstName(name, pageable);
+        Page<Student> students;
+
+        if (isEmptyName(name)) {
+            students = studentRepository.findAll(pageable);
+        } else {
+            students = studentRepository.findAllByFirstName(name, pageable);
+        }
 
         // get content for page object
         List<Student> listOfStudents = students.getContent();
@@ -131,5 +137,9 @@ public class StudentServiceImpl implements StudentService {
         student.setLastName(studentDto.getLastName());
         student.setAddress(studentDto.getAddress());
         return student;
+    }
+
+    private static boolean isEmptyName(String name) {
+        return Objects.isNull(name) || name.isBlank();
     }
 }
