@@ -1,5 +1,7 @@
 package com.nyanmyohtet.studentregistrationservice.aspect;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
 import org.aspectj.lang.annotation.*;
 import org.springframework.stereotype.Component;
@@ -10,6 +12,8 @@ import java.util.Arrays;
 @Component
 public class LoggingAspect {
 
+    private static final Logger logger = LogManager.getLogger(LoggingAspect.class);
+
     @Pointcut("execution(* com.nyanmyohtet.studentregistrationservice.service.*.*(..))")
     public void serviceMethods() {}
 
@@ -17,18 +21,18 @@ public class LoggingAspect {
     public void beforeAdvice(JoinPoint joinPoint) {
         String methodName = joinPoint.getSignature().getName();
         Object[] args = joinPoint.getArgs();
-        System.out.println(">>> Logging: " + methodName + " is about to be called with args: " + Arrays.toString(args));
+        logger.info("Logging: {} is about to be called with args: {}", methodName, Arrays.toString(args));
     }
 
     @AfterReturning(pointcut = "serviceMethods()", returning = "result")
     public void afterReturningAdvice(JoinPoint joinPoint, Object result) {
         String methodName = joinPoint.getSignature().getName();
-        System.out.println(">>> Logging: " + methodName + " returned with value: " + result);
+        logger.info("Logging: {} returned with value: {}", methodName, result);
     }
 
     @AfterThrowing(pointcut = "serviceMethods()", throwing = "exception")
     public void afterThrowingAdvice(JoinPoint joinPoint, Throwable exception) {
         String methodName = joinPoint.getSignature().getName();
-        System.out.println(">>> Logging: " + methodName + " threw an exception: " + exception);
+        logger.error("Logging: {} threw an exception: {}", methodName, exception.getMessage(), exception);
     }
 }
