@@ -42,6 +42,13 @@
 			<version>1.18.30</version>
 		</dependency>
 
+		<!-- Jasypt -->
+		<dependency>
+			<groupId>com.github.ulisesbocchio</groupId>
+			<artifactId>jasypt-spring-boot-starter</artifactId>
+			<version>3.0.3</version>
+		</dependency>
+
 		<!-- Dev Tools -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
@@ -98,6 +105,12 @@
 						</exclude>
 					</excludes>
 				</configuration>
+			</plugin>
+			<!-- Jasypt -->
+			<plugin>
+				<groupId>com.github.ulisesbocchio</groupId>
+				<artifactId>jasypt-maven-plugin</artifactId>
+				<version>3.0.3</version>
 			</plugin>
 		</plugins>
 	</build>
