@@ -37,6 +37,16 @@ jasypt.encryptor.password=encryptionPassword
 }
 ```
 
+```shell
+curl --location 'http://localhost:8080/auth/login' \
+--header 'accept: */*' \
+--header 'Content-Type: application/json' \
+--data-raw '{
+    "email": "user@example.com",
+    "password": "admin123"
+}'
+```
+
 ## Swagger
 
 - http://localhost:8080/v2/api-docs
