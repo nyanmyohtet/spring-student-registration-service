@@ -1,4 +1,5 @@
 package com.nyanmyohtet.studentregistrationservice.api.rest;
+import com.nyanmyohtet.studentregistrationservice.annotation.CustomAnnotation;
 import com.nyanmyohtet.studentregistrationservice.api.request.StudentDto;
 import com.nyanmyohtet.studentregistrationservice.api.response.StudentResponse;
 import com.nyanmyohtet.studentregistrationservice.service.StudentService;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.util.List;
 
+@CustomAnnotation("someValue")
 @RestController
 @RequestMapping(path = "/api/v1/student-management/students")
 public class StudentRestController {
