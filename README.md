@@ -28,6 +28,15 @@ Can provide the encryption password in application's configuration file (`applic
 jasypt.encryptor.password=encryptionPassword
 ```
 
+## Default Login
+
+```json
+{
+    "email": "user@example.com",
+    "password": "admin123"
+}
+```
+
 ## Swagger
 
 - http://localhost:8080/v2/api-docs
