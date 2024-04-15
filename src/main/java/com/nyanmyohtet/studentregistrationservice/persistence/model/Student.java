@@ -16,11 +16,14 @@ public class Student {
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column()
+    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column()
+    @Column(name = "last_name", nullable = false)
     private String lastName;
+
+    @Column(name = "age", nullable = false)
+    private Integer age;
 
     @Column(name = "address", nullable = false)
     @Convert(converter = AttributeEncryptor.class)
