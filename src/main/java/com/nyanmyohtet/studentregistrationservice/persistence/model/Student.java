@@ -1,5 +1,6 @@
 package com.nyanmyohtet.studentregistrationservice.persistence.model;
 
+import com.nyanmyohtet.studentregistrationservice.converter.AttributeEncryptor;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -21,7 +22,8 @@ public class Student {
     @Column()
     private String lastName;
 
-    @Column()
+    @Column(name = "address", nullable = false)
+    @Convert(converter = AttributeEncryptor.class)
     private String address;
 
     @Column()
