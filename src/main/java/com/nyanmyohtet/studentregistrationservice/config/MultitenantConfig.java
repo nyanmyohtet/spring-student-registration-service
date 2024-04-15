@@ -4,13 +4,16 @@ import com.nyanmyohtet.studentregistrationservice.service.Impl.MultitenantDataSo
 import com.nyanmyohtet.studentregistrationservice.service.Impl.ThreadLocalTenantResolver;
 import com.nyanmyohtet.studentregistrationservice.service.MultitenantDataSourceProvider;
 import com.nyanmyohtet.studentregistrationservice.service.TenantResolver;
+import org.hibernate.cfg.AvailableSettings;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.beans.factory.config.ConfigurableListableBeanFactory;
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
+import org.springframework.orm.hibernate5.SpringBeanContainer;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.JpaVendorAdapter;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -47,7 +50,8 @@ public class MultitenantConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory(
             MultitenantDataSourceProvider dataSourceProvider,
             JpaVendorAdapter jpaVendorAdapter,
-            @Value("${spring.jpa.properties.hibernate.dialect}") String dialect
+            @Value("${spring.jpa.properties.hibernate.dialect}") String dialect,
+            ConfigurableListableBeanFactory beanFactory
     ) {
         Map<String, Object> properties = new HashMap<>();
         properties.put("hibernate.dialect", dialect);
@@ -58,6 +62,7 @@ public class MultitenantConfig {
         em.setPackagesToScan("com.nyanmyohtet.studentregistrationservice.persistence.model");
         em.setJpaVendorAdapter(jpaVendorAdapter);
         em.setJpaPropertyMap(properties);
+        em.getJpaPropertyMap().put(AvailableSettings.BEAN_CONTAINER, new SpringBeanContainer(beanFactory));
         return em;
     }
 

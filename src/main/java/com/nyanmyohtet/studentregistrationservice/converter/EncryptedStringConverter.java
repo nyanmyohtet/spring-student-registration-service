@@ -3,7 +3,9 @@ package com.nyanmyohtet.studentregistrationservice.converter;
 import com.nyanmyohtet.studentregistrationservice.service.DatabaseEncryptionService;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Configurable;
 import org.springframework.stereotype.Component;
+import org.springframework.web.context.support.SpringBeanAutowiringSupport;
 
 import javax.persistence.AttributeConverter;
 import javax.persistence.Converter;
@@ -14,12 +16,6 @@ public class EncryptedStringConverter implements AttributeConverter<String, Stri
 
     @Autowired
     private DatabaseEncryptionService databaseEncryptionService;
-
-//    private final DatabaseEncryptionService databaseEncryptionService;
-//
-//    public EncryptedStringConverter(DatabaseEncryptionService databaseEncryptionService) {
-//        this.databaseEncryptionService = databaseEncryptionService;
-//    }
 
     @SneakyThrows
     @Override
