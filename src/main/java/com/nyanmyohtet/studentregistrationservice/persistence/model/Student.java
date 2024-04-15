@@ -1,6 +1,6 @@
 package com.nyanmyohtet.studentregistrationservice.persistence.model;
 
-import com.nyanmyohtet.studentregistrationservice.converter.AttributeEncryptor;
+import com.nyanmyohtet.studentregistrationservice.converter.EncryptedStringConverter;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -26,7 +26,7 @@ public class Student {
     private Integer age;
 
     @Column(name = "address", nullable = false)
-    @Convert(converter = AttributeEncryptor.class)
+    @Convert(converter = EncryptedStringConverter.class)
     private String address;
 
     @Column(name = "created_date")
