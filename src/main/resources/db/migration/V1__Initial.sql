@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS students (
 ALTER TABLE students ADD CONSTRAINT uc_2fa9b1b7386257800c3dd43d1 UNIQUE (id);
 
 -- Stored Procedure
-CREATE PROCEDURE `student-registration-service`.getStudents(IN pageNumber INT, IN pageSize INT)
+CREATE PROCEDURE getStudents(IN pageNumber INT, IN pageSize INT)
 begin
 	DECLARE offsetValue INT DEFAULT 0;
     SET offsetValue = (pageNumber) * pageSize;
