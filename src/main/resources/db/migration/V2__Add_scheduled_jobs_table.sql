@@ -6,4 +6,4 @@ CREATE TABLE scheduled_jobs (
 );
 
 INSERT INTO scheduled_jobs (job_name, cron_expression, enabled)
-VALUES ('MyCronJob', '*/10 * * * * *', true);
+VALUES ('MyCronJob', '*/2 * * * * *', true);

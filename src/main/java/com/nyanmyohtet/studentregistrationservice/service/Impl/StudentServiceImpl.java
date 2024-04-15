@@ -126,6 +126,7 @@ public class StudentServiceImpl implements StudentService {
         studentDto.setId(student.getId());
         studentDto.setFirstName(student.getFirstName());
         studentDto.setLastName(student.getLastName());
+        studentDto.setAge(student.getAge());
         studentDto.setAddress(student.getAddress());
         return studentDto;
     }
@@ -136,6 +137,7 @@ public class StudentServiceImpl implements StudentService {
         student.setId(studentDto.getId());
         student.setFirstName(studentDto.getFirstName());
         student.setLastName(studentDto.getLastName());
+        student.setAge(studentDto.getAge());
         student.setAddress(studentDto.getAddress());
         return student;
     }

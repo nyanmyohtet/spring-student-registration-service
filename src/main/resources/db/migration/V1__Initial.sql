@@ -10,6 +10,7 @@ CREATE TABLE IF NOT EXISTS students (
   id BIGINT NOT NULL,
    first_name VARCHAR(255) NULL,
    last_name VARCHAR(255) NULL,
+   age INT NOT NULL,
    address VARCHAR(255) NULL,
    created_date datetime NULL,
    updated_date datetime NULL,

@@ -10,5 +10,7 @@ public class StudentDto {
 
     private String lastName;
 
+    private Integer age;
+
     private String address;
 }
