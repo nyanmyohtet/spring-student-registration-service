@@ -1,13 +1,16 @@
 package com.nyanmyohtet.studentregistrationservice.persistence.model;
 
 import com.nyanmyohtet.studentregistrationservice.converter.EncryptedStringConverter;
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 import java.util.Calendar;
 import java.util.Date;
 
-@Data
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
 @Table(name = "students", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class Student {

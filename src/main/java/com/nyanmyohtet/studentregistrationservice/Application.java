@@ -4,6 +4,8 @@ import com.nyanmyohtet.studentregistrationservice.persistence.dao.BookDao;
 import com.nyanmyohtet.studentregistrationservice.persistence.model.Book;
 import com.nyanmyohtet.studentregistrationservice.persistence.model.User;
 import com.nyanmyohtet.studentregistrationservice.persistence.repository.UserRepository;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -13,11 +15,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaAuditing;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import java.util.List;
+import java.util.Optional;
 
 @EnableJpaAuditing
 @EnableAspectJAutoProxy
 @SpringBootApplication
 public class Application {
+
+	private static final Logger logger = LogManager.getLogger(Application.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
@@ -39,15 +44,19 @@ public class Application {
 				User savedUser = userRepository.findById(user.getId()).orElseThrow();
 			}
 
-			if (bookDao.getAllBooks().isEmpty()) {
-				Book book = new Book();
-				book.setTitle("title");
-				book.setAuthor("author");
-				bookDao.saveBook(book);
-			}
-			System.out.println(">>> getBooksByAuthor: " + bookDao.getBooksByAuthor("author"));
-			System.out.println(">>> getBooksByTitleJPQL: " + bookDao.getBooksByTitleJPQL("title"));
-			System.out.println(">>> getBooksByTitleHQL: " + bookDao.getBooksByTitleHQL("title"));
+			Optional.ofNullable(bookDao.getAllBooks())
+					.filter(books -> !books.isEmpty())
+					.ifPresentOrElse(books -> logger.info("Books: {}", books),
+						() -> {
+							Book book = new Book();
+							book.setTitle("title");
+							book.setAuthor("author");
+							bookDao.saveBook(book);
+					});
+
+            logger.info("getBooksByAuthor: {}", bookDao.getBooksByAuthor("author"));
+            logger.info("getBooksByTitleJPQL: {}", bookDao.getBooksByTitleJPQL("title"));
+            logger.info("getBooksByTitleHQL: {}", bookDao.getBooksByTitleHQL("title"));
 		};
 	}
 

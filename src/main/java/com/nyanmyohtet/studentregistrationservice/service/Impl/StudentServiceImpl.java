@@ -99,8 +99,6 @@ public class StudentServiceImpl implements StudentService {
             throw new ResourceNotFoundException("student not found");
         }
 
-        // Student student = studentOptional.get();
-
         Student student = mapToEntity(studentExistingDto);
         student.setId(studentId);
         Student updatedStudent = studentRepository.save(student);

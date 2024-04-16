@@ -20,24 +20,19 @@ import java.util.Base64;
 @Service
 public class DatabaseEncryptionServiceImpl implements DatabaseEncryptionService {
 
-    private DatabaseEncryptionConfig databaseEncryptionConfig;
+    private final DatabaseEncryptionConfig databaseEncryptionConfig;
 
-    private byte[] key;
-
-    private int length = 16;
-
-    private SecretKeySpec secretKey;
+    private final SecretKeySpec secretKey;
 
     public DatabaseEncryptionServiceImpl(DatabaseEncryptionConfig databaseEncryptionConfig) throws UnsupportedEncodingException, NoSuchPaddingException, NoSuchAlgorithmException {
         this.databaseEncryptionConfig = databaseEncryptionConfig;
         StringBuilder secretStringBuilder = new StringBuilder(this.databaseEncryptionConfig.getSecret());
+        int length = 16;
         if (this.databaseEncryptionConfig.getSecret().length() < length) {
             int missingLength = length - this.databaseEncryptionConfig.getSecret().length();
-            for (int i = 0; i < missingLength; i++) {
-                secretStringBuilder.append(" ");
-            }
+            secretStringBuilder.append(" ".repeat(missingLength));
         }
-        key = secretStringBuilder.toString().getBytes(StandardCharsets.UTF_8);
+        byte[] key = secretStringBuilder.toString().getBytes(StandardCharsets.UTF_8);
 
         this.secretKey = new SecretKeySpec(key, this.databaseEncryptionConfig.getAlgorithm());
     }

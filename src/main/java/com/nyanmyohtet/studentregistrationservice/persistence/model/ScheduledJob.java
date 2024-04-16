@@ -1,11 +1,14 @@
 package com.nyanmyohtet.studentregistrationservice.persistence.model;
 
-import lombok.Data;
+import lombok.*;
 
 import javax.persistence.*;
 
+@Getter
+@Setter
+@ToString
+@RequiredArgsConstructor
 @Entity
-@Data
 @Table(name = "scheduled_jobs", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class ScheduledJob {
 

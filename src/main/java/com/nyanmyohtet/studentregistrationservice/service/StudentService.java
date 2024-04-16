@@ -12,9 +12,9 @@ public interface StudentService {
 
     StudentDto getStudentById(Long studentId);
 
-    StudentDto createStudent(StudentDto productNewDto);
+    StudentDto createStudent(StudentDto studentNewDto);
 
-    StudentDto updateStudent(Long studentId, StudentDto productExistingDto);
+    StudentDto updateStudent(Long studentId, StudentDto studentExistingDto);
 
     void deleteStudent(Long studentId);
 }

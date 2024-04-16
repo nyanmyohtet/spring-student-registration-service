@@ -13,7 +13,7 @@ import java.util.Date;
 public class JwtTokenUtil {
     private static final long EXPIRE_DURATION = 24 * 60 * 60 * 1000; // 24 hour
 
-    @Value("${app.jwt.secret}")
+    @Value("${jwt.secret}")
     private String SECRET_KEY;
 
     private static final Logger logger = LogManager.getLogger(JwtTokenUtil.class);
@@ -23,15 +23,15 @@ public class JwtTokenUtil {
             Jwts.parser().setSigningKey(SECRET_KEY).parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException ex) {
-            logger.error("JWT expired", ex.getMessage());
+            logger.error("JWT expired: {}", ex.getMessage());
         } catch (IllegalArgumentException ex) {
-            logger.error("Token is null, empty or only whitespace", ex.getMessage());
+            logger.error("Token is null, empty or only whitespace: {}", ex.getMessage());
         } catch (MalformedJwtException ex) {
-            logger.error("JWT is invalid", ex);
+            logger.error("JWT is invalid: {}", ex.getMessage());
         } catch (UnsupportedJwtException ex) {
-            logger.error("JWT is not supported", ex);
+            logger.error("JWT is not supported: {}", ex.getMessage());
         } catch (SignatureException ex) {
-            logger.error("Signature validation failed");
+            logger.error("Signature validation failed: {}", ex.getMessage());
         }
 
         return false;
@@ -56,6 +56,5 @@ public class JwtTokenUtil {
                 .setExpiration(new Date(System.currentTimeMillis() + EXPIRE_DURATION))
                 .signWith(SignatureAlgorithm.HS512, SECRET_KEY)
                 .compact();
-
     }
 }
