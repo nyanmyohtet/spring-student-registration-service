@@ -33,6 +33,8 @@ import java.util.Map;
 )
 public class MultitenantConfig {
 
+    public static final String MODEL_PACKAGE = "com.nyanmyohtet.studentregistrationservice.persistence.model";
+
     @Bean
     @Primary
     @ConfigurationProperties(prefix = "spring.datasource.tenant1")
@@ -55,11 +57,10 @@ public class MultitenantConfig {
     ) {
         Map<String, Object> properties = new HashMap<>();
         properties.put("hibernate.dialect", dialect);
-//        properties.put("hibernate.hbm2ddl.auto", "update");
 
         LocalContainerEntityManagerFactoryBean em = new LocalContainerEntityManagerFactoryBean();
         em.setDataSource(dataSourceProvider.getDataSourceForTenant("tenant1"));
-        em.setPackagesToScan("com.nyanmyohtet.studentregistrationservice.persistence.model");
+        em.setPackagesToScan(MODEL_PACKAGE);
         em.setJpaVendorAdapter(jpaVendorAdapter);
         em.setJpaPropertyMap(properties);
         em.getJpaPropertyMap().put(AvailableSettings.BEAN_CONTAINER, new SpringBeanContainer(beanFactory));

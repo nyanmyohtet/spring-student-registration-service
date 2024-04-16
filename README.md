@@ -6,6 +6,8 @@ Student Registration Service
 
 Encrypt credentials that are wrapped with `DEC(value)` in application.properties file.
 
+!!! Use GitBash if you are on Windows.
+
 ```sh
 mvn jasypt:encrypt -Djasypt.encryptor.password=encryptionPassword
 ```
