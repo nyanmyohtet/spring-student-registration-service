@@ -101,6 +101,7 @@ public class StudentServiceImpl implements StudentService {
 
         Student student = mapToEntity(studentExistingDto);
         student.setId(studentId);
+        student.setCreatedDate(studentOptional.get().getCreatedDate());
         Student updatedStudent = studentRepository.save(student);
 
         return mapToDTO(updatedStudent);
