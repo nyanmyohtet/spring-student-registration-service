@@ -12,15 +12,12 @@ import java.util.Date;
 @Table(name = "students", uniqueConstraints = {@UniqueConstraint(columnNames = {"id"})})
 public class Student {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
-    private String firstName;
-
-    @Column(name = "last_name", nullable = false)
-    private String lastName;
+    @Column(name = "name", nullable = false)
+    private String name;
 
     @Column(name = "age", nullable = false)
     private Integer age;

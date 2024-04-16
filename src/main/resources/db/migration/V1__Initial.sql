@@ -6,15 +6,14 @@ CREATE TABLE hibernate_sequence (
 INSERT INTO hibernate_sequence VALUES (1);
 
 -- students table
-CREATE TABLE IF NOT EXISTS students (
-  id BIGINT NOT NULL,
-   first_name VARCHAR(255) NULL,
-   last_name VARCHAR(255) NULL,
-   age INT NOT NULL,
-   address VARCHAR(255) NULL,
-   created_date datetime NULL,
-   updated_date datetime NULL,
-   CONSTRAINT pk_students PRIMARY KEY (id)
+CREATE TABLE students (
+    id BIGINT AUTO_INCREMENT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    age INT NOT NULL,
+    address VARCHAR(255) NOT NULL,
+    created_date datetime NULL,
+    updated_date datetime NULL,
+    CONSTRAINT pk_students PRIMARY KEY (id)
 );
 
 ALTER TABLE students ADD CONSTRAINT uc_2fa9b1b7386257800c3dd43d1 UNIQUE (id);
@@ -27,8 +26,7 @@ begin
 
 	SELECT
         id,
-        first_name,
-        last_name,
+        name,
         age,
         address,
         created_date,

@@ -15,6 +15,6 @@ public interface StudentRepository extends JpaRepository<Student, Long> {
     @Procedure(name = "getStudents")
     List<Student> getStudents(Integer pageNumber, Integer pageSize);
 
-    Page<Student> findAllByFirstName(String firstName, Pageable pageable);
+    Page<Student> findAllByName(String name, Pageable pageable);
 
 }

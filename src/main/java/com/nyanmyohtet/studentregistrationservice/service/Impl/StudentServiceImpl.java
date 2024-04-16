@@ -39,7 +39,7 @@ public class StudentServiceImpl implements StudentService {
         if (isEmptyName(name)) {
             students = studentRepository.findAll(pageable);
         } else {
-            students = studentRepository.findAllByFirstName(name, pageable);
+            students = studentRepository.findAllByName(name, pageable);
         }
 
         // get content for page object
@@ -124,8 +124,7 @@ public class StudentServiceImpl implements StudentService {
     private StudentDto mapToDTO(Student student) {
         StudentDto studentDto = new StudentDto();
         studentDto.setId(student.getId());
-        studentDto.setFirstName(student.getFirstName());
-        studentDto.setLastName(student.getLastName());
+        studentDto.setName(student.getName());
         studentDto.setAge(student.getAge());
         studentDto.setAddress(student.getAddress());
         return studentDto;
@@ -135,8 +134,7 @@ public class StudentServiceImpl implements StudentService {
     private Student mapToEntity(StudentDto studentDto) {
         Student student = new Student();
         student.setId(studentDto.getId());
-        student.setFirstName(studentDto.getFirstName());
-        student.setLastName(studentDto.getLastName());
+        student.setName(studentDto.getName());
         student.setAge(studentDto.getAge());
         student.setAddress(studentDto.getAddress());
         return student;
