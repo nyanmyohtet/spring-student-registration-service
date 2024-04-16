@@ -50,15 +50,12 @@ public class ApplicationSecurity {
         http.csrf().disable();
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
 
-        http.authorizeRequests()
+        http.requiresChannel(channel ->
+                    channel.anyRequest().requiresSecure())
+            .authorizeRequests()
                 .antMatchers("/auth/login", "/docs/**", "/v2/api-docs",
                         "/swagger-ui/**", "/swagger-resources/**").permitAll()
                 .anyRequest().authenticated();
-        http
-            .requiresChannel(channel ->
-                    channel.anyRequest().requiresSecure())
-            .authorizeRequests(authorize ->
-                    authorize.anyRequest().permitAll());
 
         http.exceptionHandling()
                 .authenticationEntryPoint(
