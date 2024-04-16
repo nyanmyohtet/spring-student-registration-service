@@ -1,5 +1,7 @@
 package com.nyanmyohtet.studentregistrationservice;
 
+import com.nyanmyohtet.studentregistrationservice.persistence.dao.BookDao;
+import com.nyanmyohtet.studentregistrationservice.persistence.model.Book;
 import com.nyanmyohtet.studentregistrationservice.persistence.model.User;
 import com.nyanmyohtet.studentregistrationservice.persistence.repository.UserRepository;
 import org.springframework.boot.CommandLineRunner;
@@ -22,7 +24,7 @@ public class Application {
 	}
 
 	@Bean
-	CommandLineRunner runner(UserRepository userRepository) {
+	CommandLineRunner runner(UserRepository userRepository, BookDao bookDao) {
 		return args -> {
 			List<User> all = userRepository.findAll();
 			if (all.isEmpty()) {
@@ -36,6 +38,16 @@ public class Application {
 				userRepository.save(user);
 				User savedUser = userRepository.findById(user.getId()).orElseThrow();
 			}
+
+			if (bookDao.getAllBooks().isEmpty()) {
+				Book book = new Book();
+				book.setTitle("title");
+				book.setAuthor("author");
+				bookDao.saveBook(book);
+			}
+			System.out.println(">>> getBooksByAuthor: " + bookDao.getBooksByAuthor("author"));
+			System.out.println(">>> getBooksByTitleJPQL: " + bookDao.getBooksByTitleJPQL("title"));
+			System.out.println(">>> getBooksByTitleHQL: " + bookDao.getBooksByTitleHQL("title"));
 		};
 	}
 
